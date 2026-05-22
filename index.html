@@ -1,25 +1,32 @@
+<!DOCTYPE html>
+<html lang="pl">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>OSUCH KOPER CHAT</title>
 
 <style>
+
 body{
 margin:0;
 padding:0;
 font-family:Arial,sans-serif;
-background:linear-gradient(180deg,#ffe6f5,#f6e9ff);
+background:linear-gradient(180deg,#ffe6f5,#f2e7ff);
+height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-height:100vh;
 overflow:hidden;
 }
 
 .chat-container{
-width:370px;
+width:380px;
 height:760px;
 background:white;
 border-radius:35px;
 overflow:hidden;
-box-shadow:0 10px 35px rgba(0,0,0,0.15);
+box-shadow:0 15px 40px rgba(0,0,0,0.15);
 display:flex;
 flex-direction:column;
 }
@@ -33,29 +40,26 @@ color:white;
 
 .top h1{
 margin:0;
-font-size:42px;
+font-size:32px;
 font-weight:900;
-letter-spacing:2px;
 }
 
 .online{
-margin-top:12px;
-font-size:20px;
-opacity:0.95;
+margin-top:10px;
+font-size:18px;
 }
 
 .main{
 flex:1;
-padding:30px 20px;
+padding:25px;
 display:flex;
 flex-direction:column;
 align-items:center;
-justify-content:flex-start;
+overflow:hidden;
 }
 
 .heart{
-font-size:70px;
-margin-top:10px;
+font-size:60px;
 animation:pulse 1.5s infinite;
 }
 
@@ -66,43 +70,42 @@ animation:pulse 1.5s infinite;
 }
 
 .title{
-font-size:46px;
+font-size:42px;
 font-weight:900;
 text-align:center;
+line-height:1.1;
 margin-top:15px;
 color:#222;
-line-height:1.1;
 }
 
 .subtitle{
-font-size:22px;
+font-size:20px;
 text-align:center;
 color:#666;
-margin-top:20px;
-line-height:1.4;
+margin-top:15px;
 }
 
 .gender-box{
 display:flex;
 gap:15px;
-margin-top:35px;
 width:100%;
+margin-top:30px;
 }
 
 .gender-btn{
 flex:1;
+padding:18px;
 border:none;
-padding:20px;
-border-radius:20px;
-background:#f5f1ff;
-font-size:24px;
+border-radius:18px;
+background:#f4f1ff;
+font-size:20px;
 font-weight:700;
 cursor:pointer;
 transition:0.2s;
 }
 
 .gender-btn:hover{
-transform:scale(1.04);
+transform:scale(1.03);
 }
 
 .selected{
@@ -113,33 +116,22 @@ color:white;
 .start-btn{
 margin-top:25px;
 width:100%;
+padding:20px;
 border:none;
-padding:22px;
-border-radius:22px;
+border-radius:20px;
 background:linear-gradient(135deg,#ff5fb7,#7a5cff);
 color:white;
-font-size:26px;
+font-size:22px;
 font-weight:900;
 cursor:pointer;
-transition:0.2s;
-}
-
-.start-btn:hover{
-transform:scale(1.03);
-}
-
-.info{
-margin-top:18px;
-font-size:16px;
-color:#888;
-text-align:center;
 }
 
 #messages{
 flex:1;
 width:100%;
 overflow-y:auto;
-padding:10px;
+margin-top:20px;
+padding-right:5px;
 }
 
 .msg{
@@ -147,7 +139,7 @@ padding:14px 18px;
 border-radius:20px;
 margin:8px 0;
 max-width:75%;
-font-size:18px;
+font-size:17px;
 word-wrap:break-word;
 }
 
@@ -165,57 +157,286 @@ color:#222;
 .system{
 background:#eef0ff;
 color:#666;
-text-align:center;
 margin:auto;
+text-align:center;
 }
 
 .bottom{
 display:flex;
-padding:15px;
 gap:10px;
+padding:15px;
 border-top:1px solid #eee;
 }
 
 #messageInput{
 flex:1;
-padding:18px;
-border-radius:20px;
+padding:16px;
 border:none;
+border-radius:18px;
 background:#f5f5f5;
-font-size:18px;
+font-size:17px;
 outline:none;
 }
 
 .send-btn{
+padding:16px 20px;
 border:none;
-padding:18px 22px;
 border-radius:18px;
 background:linear-gradient(135deg,#ff5fb7,#7a5cff);
 color:white;
-font-size:18px;
 font-weight:700;
 cursor:pointer;
 }
 
 .skip-btn{
-margin-top:12px;
-border:none;
+margin-top:10px;
+width:100%;
 padding:16px;
+border:none;
 border-radius:18px;
 background:#111;
 color:white;
-font-size:18px;
+font-size:17px;
 font-weight:700;
 cursor:pointer;
-width:100%;
 }
 
 #typing{
-font-size:15px;
+height:20px;
+font-size:14px;
 color:#888;
 margin-top:5px;
-height:20px;
 }
-</style>
 
+</style>
 </head>
+
+<body>
+
+<div class="chat-container">
+
+<div class="top">
+<h1>OSUCH KOPER CHAT 💗</h1>
+<div class="online" id="onlineCount">Online: 1</div>
+</div>
+
+<div class="main" id="main">
+
+<div class="heart">💞</div>
+
+<div class="title">
+Poznaj kogoś anonimowo
+</div>
+
+<div class="subtitle">
+Wybierz swoją płeć i połącz się z losową osobą.
+</div>
+
+<div class="gender-box">
+<button class="gender-btn" onclick="selectGender('girl',this)">
+👱‍♀️ Kobieta
+</button>
+
+<button class="gender-btn" onclick="selectGender('boy',this)">
+👱‍♂️ Mężczyzna
+</button>
+</div>
+
+<button class="start-btn" onclick="startChat()">
+ROZPOCZNIJ ROZMOWĘ
+</button>
+
+<div id="messages" style="display:none;"></div>
+
+<div id="typing"></div>
+
+</div>
+
+<div class="bottom" id="chatBottom" style="display:none;">
+<input id="messageInput" placeholder="Napisz wiadomość..." oninput="typing()">
+
+<button class="send-btn" onclick="sendMessage()">
+Wyślij
+</button>
+</div>
+
+<button class="skip-btn" id="skipBtn" style="display:none;" onclick="skipChat()">
+Pomiń osobę
+</button>
+
+</div>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+getDatabase,
+ref,
+set,
+push,
+onValue,
+onChildAdded,
+remove
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+const firebaseConfig = {
+
+apiKey: "TU_WKLEJ_APIKEY",
+authDomain: "TU_WKLEJ",
+databaseURL: "TU_WKLEJ",
+projectId: "TU_WKLEJ",
+storageBucket: "TU_WKLEJ",
+messagingSenderId: "TU_WKLEJ",
+appId: "TU_WKLEJ"
+
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+let gender = "";
+let room = null;
+let userId = Math.random().toString(36).substring(2,9);
+
+window.selectGender = function(g,btn){
+
+gender = g;
+
+document.querySelectorAll(".gender-btn")
+.forEach(b=>b.classList.remove("selected"));
+
+btn.classList.add("selected");
+
+}
+
+set(ref(db,"online/"+userId),true);
+
+window.addEventListener("beforeunload",()=>{
+remove(ref(db,"online/"+userId));
+});
+
+onValue(ref(db,"online"),(snap)=>{
+
+const data = snap.val() || {};
+const count = Object.keys(data).length;
+
+document.getElementById("onlineCount").innerText =
+"Online: "+count;
+
+});
+
+window.startChat = async function(){
+
+if(!gender){
+alert("Wybierz płeć 😭");
+return;
+}
+
+room = "room_"+Math.floor(Math.random()*100000);
+
+document.getElementById("messages").style.display="block";
+document.getElementById("chatBottom").style.display="flex";
+document.getElementById("skipBtn").style.display="block";
+
+document.querySelector(".heart").style.display="none";
+document.querySelector(".title").style.display="none";
+document.querySelector(".subtitle").style.display="none";
+document.querySelector(".gender-box").style.display="none";
+document.querySelector(".start-btn").style.display="none";
+
+const div = document.createElement("div");
+div.className="msg system";
+div.innerText="💘 Połączono z rozmówcą";
+document.getElementById("messages").appendChild(div);
+
+listenMessages();
+
+}
+
+function listenMessages(){
+
+onChildAdded(ref(db,"messages/"+room),(snap)=>{
+
+const msg = snap.val();
+
+const div = document.createElement("div");
+
+div.className =
+msg.user===userId ? "msg me" : "msg other";
+
+div.innerText = msg.text;
+
+document.getElementById("messages").appendChild(div);
+
+document.getElementById("messages").scrollTop =
+document.getElementById("messages").scrollHeight;
+
+});
+
+}
+
+window.sendMessage = function(){
+
+const input = document.getElementById("messageInput");
+
+const text = input.value.trim();
+
+if(text==="") return;
+
+push(ref(db,"messages/"+room),{
+
+user:userId,
+text:text
+
+});
+
+input.value="";
+
+}
+
+window.skipChat = function(){
+
+document.getElementById("messages").innerHTML="";
+
+const div = document.createElement("div");
+
+div.className="msg system";
+div.innerText="🔎 Szukanie nowej osoby...";
+
+document.getElementById("messages").appendChild(div);
+
+setTimeout(()=>{
+
+document.getElementById("messages").innerHTML="";
+
+const div2 = document.createElement("div");
+
+div2.className="msg system";
+div2.innerText="💘 Połączono z nową osobą";
+
+document.getElementById("messages").appendChild(div2);
+
+},2000);
+
+}
+
+window.typing = function(){
+
+document.getElementById("typing").innerText =
+"✍️ ktoś pisze...";
+
+clearTimeout(window.typingTimeout);
+
+window.typingTimeout = setTimeout(()=>{
+
+document.getElementById("typing").innerText="";
+
+},1000);
+
+}
+
+</script>
+
+</body>
+</html>
