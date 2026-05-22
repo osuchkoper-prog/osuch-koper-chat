@@ -3,214 +3,205 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>OSUCH KOPER CHAT</title>
 
 <style>
+*{box-sizing:border-box}
+
 body{
 margin:0;
-padding:0;
 font-family:Arial,sans-serif;
-background:linear-gradient(180deg,#ffe6f5,#f0e9ff);
-height:100vh;
+min-height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-overflow:hidden;
+background:
+radial-gradient(circle at top,#ffe0f2,#f1e7ff 55%,#fff);
 }
 
 .box{
 width:390px;
-height:760px;
-background:white;
-border-radius:40px;
+height:720px;
+background:rgba(255,255,255,.9);
+border-radius:34px;
 overflow:hidden;
-box-shadow:0 15px 40px rgba(0,0,0,0.15);
+box-shadow:0 25px 70px rgba(120,80,255,.25);
 display:flex;
 flex-direction:column;
-position:relative;
 }
 
-.top{
-background:linear-gradient(135deg,#ff5ebc,#7a5cff);
-padding:35px 20px 25px;
-text-align:center;
+.header{
+background:linear-gradient(135deg,#ff5fb2,#805cff);
+padding:26px;
 color:white;
+text-align:center;
+font-size:30px;
+font-weight:900;
 }
 
-.top h1{
-margin:0;
+.heart{
 font-size:42px;
-font-weight:900;
-line-height:1.1;
+margin:8px 0;
+animation:pulse 1.3s infinite;
 }
 
 .online{
-margin-top:12px;
-font-size:18px;
-opacity:0.95;
+font-size:15px;
+font-weight:400;
 }
 
-.main{
-flex:1;
-padding:30px 25px;
-display:flex;
-flex-direction:column;
-justify-content:flex-start;
-align-items:center;
-overflow-y:auto;
-}
-
-.hearts{
-font-size:60px;
-margin-top:10px;
-}
-
-.title{
-font-size:55px;
-font-weight:900;
+.content{
+padding:35px 28px;
 text-align:center;
-margin-top:15px;
-line-height:1;
-color:#222;
 }
 
-.desc{
-margin-top:20px;
-font-size:23px;
-text-align:center;
-color:#555;
+.big{
+font-size:62px;
+animation:pulse 1.5s infinite;
+}
+
+h2{
+font-size:31px;
+margin:18px 0 10px;
+color:#2c2c36;
+}
+
+p{
+color:#666;
+font-size:16px;
 line-height:1.4;
 }
 
-.gender-box{
-display:flex;
-gap:15px;
-width:100%;
-margin-top:35px;
-}
-
 .gender{
-flex:1;
-padding:20px;
-border-radius:25px;
-background:#f3f3ff;
-border:none;
-font-size:24px;
-font-weight:700;
+display:flex;
+gap:12px;
+margin:28px 0 18px;
+}
+
+button{
+border:0;
+border-radius:20px;
+padding:16px;
+font-size:16px;
+font-weight:800;
 cursor:pointer;
-transition:0.2s;
-}
-
-.gender.active{
-background:linear-gradient(135deg,#ff5ebc,#7a5cff);
-color:white;
-transform:scale(1.05);
-}
-
-.start{
-margin-top:25px;
 width:100%;
-padding:22px;
-border:none;
-border-radius:25px;
-background:linear-gradient(135deg,#ff5ebc,#7a5cff);
+}
+
+.gender button{
+background:#f2ecff;
+color:#7350c7;
+}
+
+.selected{
+outline:3px solid #ff5fb2;
+background:#ffe1f2!important;
+color:#d63384!important;
+}
+
+.mainBtn,.send{
+background:linear-gradient(135deg,#ff5fb2,#805cff);
 color:white;
-font-size:28px;
-font-weight:900;
-cursor:pointer;
 }
 
-.system{
-margin-top:18px;
-font-size:20px;
-text-align:center;
-color:#777;
-min-height:30px;
-}
-
-.chat{
+#chat{
 display:none;
 flex-direction:column;
 height:100%;
-width:100%;
 }
 
-.messages{
-flex:1;
-padding:20px;
-overflow-y:auto;
+.topBtns{
+padding:10px;
 background:white;
 }
 
+.skip{
+background:#111;
+color:white;
+}
+
+#messages{
+flex:1;
+overflow:auto;
+padding:18px;
+background:linear-gradient(#fff7fb,#fff);
+}
+
 .msg{
-padding:14px 18px;
+padding:12px 14px;
 border-radius:18px;
-margin-bottom:12px;
-max-width:75%;
-font-size:19px;
+margin-bottom:10px;
+max-width:78%;
 word-wrap:break-word;
 }
 
 .me{
-background:#ff5ebc;
+background:linear-gradient(135deg,#ff78bd,#805cff);
 color:white;
 margin-left:auto;
+border-bottom-right-radius:5px;
 }
 
 .other{
-background:#eee;
-color:#222;
-}
-
-.input-box{
-display:flex;
-padding:15px;
-gap:10px;
 background:white;
-border-top:1px solid #eee;
+border:1px solid #eee;
+border-bottom-left-radius:5px;
 }
 
-.input{
+.system{
+background:#f2ecff;
+color:#7350c7;
+text-align:center;
+margin:10px auto;
+max-width:92%;
+}
+
+#typing{
+height:24px;
+padding:0 18px;
+color:#9d5cff;
+font-size:13px;
+font-style:italic;
+}
+
+.bottom{
+display:flex;
+gap:9px;
+padding:12px;
+background:white;
+}
+
+input{
 flex:1;
-padding:16px;
+padding:14px;
 border-radius:18px;
-border:none;
-background:#f2f2f2;
-font-size:18px;
+border:1px solid #ddd;
 outline:none;
 }
 
 .send{
-padding:16px 22px;
-border:none;
-border-radius:18px;
-background:#7a5cff;
-color:white;
-font-size:18px;
-font-weight:700;
-cursor:pointer;
+width:85px;
 }
 
-.skip{
-margin:12px;
-padding:16px;
-border:none;
-border-radius:18px;
-background:#111;
-color:white;
-font-size:18px;
-font-weight:700;
-cursor:pointer;
+.searching{
+text-align:center;
+padding:90px 20px;
+font-size:24px;
+font-weight:900;
+color:#8b5cff;
 }
 
-#typing{
-font-size:16px;
-color:#888;
-height:20px;
-padding-left:10px;
+.loader{
+font-size:60px;
+animation:pulse 1.2s infinite;
 }
 
+@keyframes pulse{
+50%{
+transform:scale(1.15);
+opacity:.7;
+}
+}
 </style>
 </head>
 
@@ -218,225 +209,617 @@ padding-left:10px;
 
 <div class="box">
 
-<div class="top">
-<h1>OSUCH KOPER CHAT 💖</h1>
-<div class="online" id="online">Online: 1</div>
+<div class="header">
+OSUCH KOPER CHAT
+<div class="heart">💗</div>
+<div class="online">
+Online:
+<span id="onlineCount">0</span>
+</div>
 </div>
 
-<div class="main" id="startScreen">
+<div class="content" id="startScreen">
 
-<div class="hearts">💞</div>
+<div class="big">💞</div>
 
-<div class="title">
-Poznaj kogoś anonimowo
+<h2>Poznaj kogoś anonimowo</h2>
+
+<p>
+Wybierz swoją płeć i połącz się z prawdziwą osobą online.
+</p>
+
+<div class="gender">
+<button id="girlBtn">👧 Kobieta</button>
+<button id="boyBtn">👦 Mężczyzna</button>
 </div>
 
-<div class="desc">
-Wybierz swoją płeć i połącz się z losową osobą.
-</div>
-
-<div class="gender-box">
-<button class="gender" id="girlBtn" onclick="selectGender('girl',this)">👱‍♀️ Kobieta</button>
-<button class="gender" id="boyBtn" onclick="selectGender('boy',this)">👱‍♂️ Mężczyzna</button>
-</div>
-
-<button class="start" onclick="startChat()">
+<button class="mainBtn" id="startBtn">
 ROZPOCZNIJ ROZMOWĘ
 </button>
 
-<div class="system" id="status"></div>
-
 </div>
 
-<div class="chat" id="chatScreen">
+<div id="chat">
 
-<div class="messages" id="messages"></div>
+<div class="topBtns">
+<button class="skip" id="skipBtn">
+Pomiń osobę
+</button>
+</div>
+
+<div id="messages"></div>
 
 <div id="typing"></div>
 
-<div class="input-box">
-<input class="input" id="messageInput" placeholder="Napisz wiadomość...">
-<button class="send" onclick="sendMessage()">Wyślij</button>
+<div class="bottom">
+<input id="messageInput" placeholder="Napisz wiadomość...">
+<button class="send" id="sendBtn">
+Wyślij
+</button>
 </div>
 
-<button class="skip" onclick="skipChat()">Pomiń rozmowę</button>
-
 </div>
 
 </div>
 
-<script type="module">
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
-import {
-getDatabase,
-ref,
-set,
-push,
-onValue,
-onChildAdded,
-remove
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+<script>
 
 const firebaseConfig = {
 
-apiKey: "TU_WKLEJ",
-
+apiKey: "TU_WKLEJ_APIKEY",
 authDomain: "TU_WKLEJ",
-
 databaseURL: "TU_WKLEJ",
-
 projectId: "TU_WKLEJ",
-
 storageBucket: "TU_WKLEJ",
-
 messagingSenderId: "TU_WKLEJ",
-
 appId: "TU_WKLEJ"
 
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
+firebase.initializeApp(firebaseConfig);
 
-let gender = "";
-let room = null;
-let userId = Math.random().toString(36).substring(2,9);
+const db = firebase.database();
 
-window.selectGender = function(g,btn){
+const userId =
+Math.random().toString(36).substring(2,9);
 
-gender = g;
+let myGender = null;
+let currentRoom = null;
+let currentPartner = null;
+let opened = false;
+let typingTimer = null;
 
-document.querySelectorAll(".gender").forEach(b=>{
-b.classList.remove("active");
-});
+const girlBtn =
+document.getElementById("girlBtn");
 
-btn.classList.add("active");
+const boyBtn =
+document.getElementById("boyBtn");
+
+const startBtn =
+document.getElementById("startBtn");
+
+const skipBtn =
+document.getElementById("skipBtn");
+
+const sendBtn =
+document.getElementById("sendBtn");
+
+const startScreen =
+document.getElementById("startScreen");
+
+const chat =
+document.getElementById("chat");
+
+const messages =
+document.getElementById("messages");
+
+const input =
+document.getElementById("messageInput");
+
+const typing =
+document.getElementById("typing");
+
+girlBtn.onclick =
+()=>selectGender("kobieta");
+
+boyBtn.onclick =
+()=>selectGender("mezczyzna");
+
+startBtn.onclick = startChat;
+skipBtn.onclick = skipPerson;
+sendBtn.onclick = sendMessage;
+
+input.onkeydown = e => {
+if(e.key === "Enter")
+sendMessage();
+};
+
+input.oninput = sendTyping;
+
+function selectGender(g){
+
+myGender = g;
+
+girlBtn.classList.remove("selected");
+boyBtn.classList.remove("selected");
+
+if(g === "kobieta"){
+girlBtn.classList.add("selected");
+}else{
+boyBtn.classList.add("selected");
+}
 
 }
 
-function updateOnline(){
+const onlineRef =
+db.ref("online/" + userId);
 
-set(ref(db,"online/"+userId),true);
+onlineRef.set({
+lastSeen: Date.now()
+});
 
-onValue(ref(db,"online"),snap=>{
+onlineRef.onDisconnect().remove();
+
+setInterval(()=>{
+
+onlineRef.update({
+lastSeen: Date.now()
+});
+
+},5000);
+
+db.ref("online").on("value",snap=>{
 
 const data = snap.val() || {};
 
-document.getElementById("online").innerText =
-"Online: " + Object.keys(data).length;
+let count = 0;
+
+const now = Date.now();
+
+Object.entries(data).forEach(([id,u])=>{
+
+if(
+u &&
+u.lastSeen &&
+now - u.lastSeen < 15000
+){
+count++;
+}else{
+db.ref("online/" + id).remove();
+}
 
 });
 
-}
+document.getElementById(
+"onlineCount"
+).innerText = count;
 
-updateOnline();
+});
 
-window.startChat = function(){
+async function startChat(){
 
-if(!gender){
+if(!myGender){
 alert("Wybierz płeć 😭");
 return;
 }
 
-document.getElementById("status").innerText =
-"🔎 Szukanie rozmówcy...";
+opened = false;
+currentRoom = null;
+currentPartner = null;
 
-onValue(ref(db,"waiting"),snap=>{
+messages.innerHTML = "";
+typing.innerText = "";
 
-const waiting = snap.val();
+await db.ref(
+"waiting/" + userId
+).remove();
 
-if(waiting){
+await db.ref(
+"matches/" + userId
+).remove();
 
-const otherId = Object.keys(waiting)
-.find(id => id !== userId);
+chat.style.display = "none";
 
-if(otherId){
+startScreen.innerHTML =
+'<div class="searching"><div class="loader">💗</div>Szukanie rozmówcy...</div>';
 
-room = [userId,otherId].sort().join("_");
+const snap =
+await db.ref("waiting").get();
 
-set(ref(db,"rooms/"+room+"/connected"),true);
+const waiting =
+snap.val() || {};
 
-remove(ref(db,"waiting/"+otherId));
-remove(ref(db,"waiting/"+userId));
+const now = Date.now();
 
-openChat();
+let found = null;
+
+Object.values(waiting).forEach(p=>{
+
+if(
+p &&
+p.id !== userId &&
+p.lastSeen &&
+now - p.lastSeen < 15000 &&
+!found
+){
+found = p;
+}
+
+});
+
+if(found){
+
+const roomId =
+[userId,found.id]
+.sort()
+.join("_");
+
+await db.ref(
+"waiting/" + found.id
+).remove();
+
+await db.ref(
+"rooms/" + roomId
+).set({
+
+presence:{
+[userId]:true,
+[found.id]:true
+}
+
+});
+
+await db.ref(
+"matches/" + found.id
+).set({
+
+room:roomId,
+partnerId:userId,
+partnerGender:myGender
+
+});
+
+await db.ref(
+"matches/" + userId
+).set({
+
+room:roomId,
+partnerId:found.id,
+partnerGender:found.gender
+
+});
+
+return;
 
 }
 
-else{
+await db.ref(
+"waiting/" + userId
+).set({
 
-set(ref(db,"waiting/"+userId),{
-gender
+id:userId,
+gender:myGender,
+lastSeen:Date.now()
+
+});
+
+db.ref(
+"waiting/" + userId
+).onDisconnect().remove();
+
+setInterval(()=>{
+
+if(!currentRoom){
+
+db.ref(
+"waiting/" + userId
+).update({
+
+lastSeen:Date.now()
+
 });
 
 }
 
+},5000);
+
 }
 
-else{
+db.ref(
+"matches/" + userId
+).on("value",async snap=>{
 
-set(ref(db,"waiting/"+userId),{
-gender
+const match = snap.val();
+
+if(match && !opened){
+
+opened = true;
+
+currentRoom = match.room;
+
+currentPartner = match.partnerId;
+
+await db.ref(
+"waiting/" + userId
+).remove();
+
+await db.ref(
+"rooms/" +
+currentRoom +
+"/presence/" +
+userId
+).set(true);
+
+db.ref(
+"rooms/" +
+currentRoom +
+"/presence/" +
+userId
+).onDisconnect().set(false);
+
+openChat(
+match.partnerGender
+);
+
+}
+
 });
 
-}
+function openChat(gender){
 
-});
+startScreen.style.display =
+"none";
 
-}
+chat.style.display = "flex";
 
-function openChat(){
-
-document.getElementById("startScreen").style.display="none";
-
-document.getElementById("chatScreen").style.display="flex";
+messages.innerHTML =
+'<div class="msg system">💕 Połączono z ' +
+(gender === "kobieta"
+? "dziewczyną"
+: "chłopakiem") +
+'</div>';
 
 listenMessages();
-
-document.getElementById("messages").innerHTML +=
-'<div class="msg other">💖 Połączono z nową osobą</div>';
+listenTyping();
+watchPartner();
 
 }
 
 function listenMessages(){
 
-onChildAdded(ref(db,"messages/"+room),snap=>{
+db.ref(
+"rooms/" +
+currentRoom +
+"/messages"
+).off();
+
+db.ref(
+"rooms/" +
+currentRoom +
+"/messages"
+).on(
+"child_added",
+snap=>{
+
+const msg = snap.val();
+
+if(!msg || !msg.text)
+return;
+
+const div =
+document.createElement("div");
+
+div.className =
+msg.user === userId
+? "msg me"
+: "msg other";
+
+div.innerText = msg.text;
+
+messages.appendChild(div);
+
+messages.scrollTop =
+messages.scrollHeight;
+
+});
+
+}
+
+function sendTyping(){
+
+if(!currentRoom)
+return;
+
+db.ref(
+"rooms/" +
+currentRoom +
+"/typing/" +
+userId
+).set({
+
+typing:true,
+time:Date.now()
+
+});
+
+clearTimeout(typingTimer);
+
+typingTimer =
+setTimeout(()=>{
+
+if(currentRoom){
+
+db.ref(
+"rooms/" +
+currentRoom +
+"/typing/" +
+userId
+).set({
+
+typing:false,
+time:Date.now()
+
+});
+
+}
+
+},1200);
+
+}
+
+function listenTyping(){
+
+db.ref(
+"rooms/" +
+currentRoom +
+"/typing/" +
+currentPartner
+).on("value",snap=>{
 
 const data = snap.val();
 
-const div = document.createElement("div");
+if(
+data &&
+data.typing &&
+Date.now() - data.time < 3000
+){
 
-div.className =
-data.user === userId ? "msg me" : "msg other";
+typing.innerText =
+"Rozmówca pisze...";
 
-div.innerText = data.text;
+}else{
 
-document.getElementById("messages").appendChild(div);
+typing.innerText = "";
+
+}
 
 });
 
 }
 
-window.sendMessage = function(){
+function watchPartner(){
 
-const input = document.getElementById("messageInput");
+db.ref(
+"rooms/" +
+currentRoom +
+"/presence/" +
+currentPartner
+).on("value",snap=>{
 
-if(!input.value.trim()) return;
+if(
+snap.val() === false &&
+currentRoom
+){
 
-push(ref(db,"messages/"+room),{
-text:input.value,
-user:userId
-});
+currentRoom = null;
 
-input.value="";
+typing.innerText = "";
+
+const div =
+document.createElement("div");
+
+div.className = "msg system";
+
+div.innerText =
+"❌ Rozmówca opuścił czat";
+
+messages.appendChild(div);
+
+const btn =
+document.createElement("button");
+
+btn.innerText =
+"Szukaj nowej osoby";
+
+btn.onclick = startChat;
+
+messages.appendChild(btn);
 
 }
 
-window.skipChat = function(){
+});
 
-location.reload();
+}
+
+async function sendMessage(){
+
+const text =
+input.value.trim();
+
+if(!text)
+return;
+
+if(!currentRoom){
+
+alert(
+"Nie jesteś teraz połączona z rozmówcą 😭"
+);
+
+return;
+
+}
+
+await db.ref(
+"rooms/" +
+currentRoom +
+"/typing/" +
+userId
+).set({
+
+typing:false,
+time:Date.now()
+
+});
+
+await db.ref(
+"rooms/" +
+currentRoom +
+"/messages"
+).push({
+
+user:userId,
+text:text,
+time:Date.now()
+
+});
+
+input.value = "";
+
+}
+
+async function skipPerson(){
+
+if(currentRoom){
+
+await db.ref(
+"rooms/" +
+currentRoom +
+"/typing/" +
+userId
+).set({
+
+typing:false,
+time:Date.now()
+
+});
+
+await db.ref(
+"rooms/" +
+currentRoom +
+"/presence/" +
+userId
+).set(false);
+
+}
+
+await db.ref(
+"matches/" + userId
+).remove();
+
+startChat();
 
 }
 
