@@ -7,12 +7,11 @@
 <title>OSUCH KOPER CHAT</title>
 
 <style>
-
 body{
 margin:0;
 padding:0;
 font-family:Arial,sans-serif;
-background:linear-gradient(180deg,#ffe6f5,#f2e7ff);
+background:linear-gradient(180deg,#ffe6f5,#f0e9ff);
 height:100vh;
 display:flex;
 justify-content:center;
@@ -20,192 +19,196 @@ align-items:center;
 overflow:hidden;
 }
 
-.chat-container{
-width:380px;
+.box{
+width:390px;
 height:760px;
 background:white;
-border-radius:35px;
+border-radius:40px;
 overflow:hidden;
 box-shadow:0 15px 40px rgba(0,0,0,0.15);
 display:flex;
 flex-direction:column;
+position:relative;
 }
 
 .top{
-background:linear-gradient(135deg,#ff5fb7,#7a5cff);
-padding:35px 20px;
+background:linear-gradient(135deg,#ff5ebc,#7a5cff);
+padding:35px 20px 25px;
 text-align:center;
 color:white;
 }
 
 .top h1{
 margin:0;
-font-size:32px;
+font-size:42px;
 font-weight:900;
+line-height:1.1;
 }
 
 .online{
-margin-top:10px;
+margin-top:12px;
 font-size:18px;
+opacity:0.95;
 }
 
 .main{
 flex:1;
-padding:25px;
+padding:30px 25px;
 display:flex;
 flex-direction:column;
+justify-content:flex-start;
 align-items:center;
-overflow:hidden;
+overflow-y:auto;
 }
 
-.heart{
+.hearts{
 font-size:60px;
-animation:pulse 1.5s infinite;
-}
-
-@keyframes pulse{
-0%{transform:scale(1);}
-50%{transform:scale(1.1);}
-100%{transform:scale(1);}
+margin-top:10px;
 }
 
 .title{
-font-size:42px;
+font-size:55px;
 font-weight:900;
 text-align:center;
-line-height:1.1;
 margin-top:15px;
+line-height:1;
 color:#222;
 }
 
-.subtitle{
-font-size:20px;
+.desc{
+margin-top:20px;
+font-size:23px;
 text-align:center;
-color:#666;
-margin-top:15px;
+color:#555;
+line-height:1.4;
 }
 
 .gender-box{
 display:flex;
 gap:15px;
 width:100%;
-margin-top:30px;
+margin-top:35px;
 }
 
-.gender-btn{
+.gender{
 flex:1;
-padding:18px;
+padding:20px;
+border-radius:25px;
+background:#f3f3ff;
 border:none;
-border-radius:18px;
-background:#f4f1ff;
-font-size:20px;
+font-size:24px;
 font-weight:700;
 cursor:pointer;
 transition:0.2s;
 }
 
-.gender-btn:hover{
-transform:scale(1.03);
-}
-
-.selected{
-background:linear-gradient(135deg,#ff5fb7,#7a5cff);
+.gender.active{
+background:linear-gradient(135deg,#ff5ebc,#7a5cff);
 color:white;
+transform:scale(1.05);
 }
 
-.start-btn{
+.start{
 margin-top:25px;
 width:100%;
-padding:20px;
+padding:22px;
 border:none;
-border-radius:20px;
-background:linear-gradient(135deg,#ff5fb7,#7a5cff);
+border-radius:25px;
+background:linear-gradient(135deg,#ff5ebc,#7a5cff);
 color:white;
-font-size:22px;
+font-size:28px;
 font-weight:900;
 cursor:pointer;
 }
 
-#messages{
-flex:1;
+.system{
+margin-top:18px;
+font-size:20px;
+text-align:center;
+color:#777;
+min-height:30px;
+}
+
+.chat{
+display:none;
+flex-direction:column;
+height:100%;
 width:100%;
+}
+
+.messages{
+flex:1;
+padding:20px;
 overflow-y:auto;
-margin-top:20px;
-padding-right:5px;
+background:white;
 }
 
 .msg{
 padding:14px 18px;
-border-radius:20px;
-margin:8px 0;
+border-radius:18px;
+margin-bottom:12px;
 max-width:75%;
-font-size:17px;
+font-size:19px;
 word-wrap:break-word;
 }
 
 .me{
-background:#ff5fb7;
+background:#ff5ebc;
 color:white;
 margin-left:auto;
 }
 
 .other{
-background:#f1f1f1;
+background:#eee;
 color:#222;
 }
 
-.system{
-background:#eef0ff;
-color:#666;
-margin:auto;
-text-align:center;
-}
-
-.bottom{
+.input-box{
 display:flex;
-gap:10px;
 padding:15px;
+gap:10px;
+background:white;
 border-top:1px solid #eee;
 }
 
-#messageInput{
+.input{
 flex:1;
 padding:16px;
-border:none;
 border-radius:18px;
-background:#f5f5f5;
-font-size:17px;
+border:none;
+background:#f2f2f2;
+font-size:18px;
 outline:none;
 }
 
-.send-btn{
-padding:16px 20px;
+.send{
+padding:16px 22px;
 border:none;
 border-radius:18px;
-background:linear-gradient(135deg,#ff5fb7,#7a5cff);
+background:#7a5cff;
 color:white;
+font-size:18px;
 font-weight:700;
 cursor:pointer;
 }
 
-.skip-btn{
-margin-top:10px;
-width:100%;
+.skip{
+margin:12px;
 padding:16px;
 border:none;
 border-radius:18px;
 background:#111;
 color:white;
-font-size:17px;
+font-size:18px;
 font-weight:700;
 cursor:pointer;
 }
 
 #typing{
-height:20px;
-font-size:14px;
+font-size:16px;
 color:#888;
-margin-top:5px;
+height:20px;
+padding-left:10px;
 }
 
 </style>
@@ -213,56 +216,52 @@ margin-top:5px;
 
 <body>
 
-<div class="chat-container">
+<div class="box">
 
 <div class="top">
-<h1>OSUCH KOPER CHAT 💗</h1>
-<div class="online" id="onlineCount">Online: 1</div>
+<h1>OSUCH KOPER CHAT 💖</h1>
+<div class="online" id="online">Online: 1</div>
 </div>
 
-<div class="main" id="main">
+<div class="main" id="startScreen">
 
-<div class="heart">💞</div>
+<div class="hearts">💞</div>
 
 <div class="title">
 Poznaj kogoś anonimowo
 </div>
 
-<div class="subtitle">
+<div class="desc">
 Wybierz swoją płeć i połącz się z losową osobą.
 </div>
 
 <div class="gender-box">
-<button class="gender-btn" onclick="selectGender('girl',this)">
-👱‍♀️ Kobieta
-</button>
-
-<button class="gender-btn" onclick="selectGender('boy',this)">
-👱‍♂️ Mężczyzna
-</button>
+<button class="gender" id="girlBtn" onclick="selectGender('girl',this)">👱‍♀️ Kobieta</button>
+<button class="gender" id="boyBtn" onclick="selectGender('boy',this)">👱‍♂️ Mężczyzna</button>
 </div>
 
-<button class="start-btn" onclick="startChat()">
+<button class="start" onclick="startChat()">
 ROZPOCZNIJ ROZMOWĘ
 </button>
 
-<div id="messages" style="display:none;"></div>
+<div class="system" id="status"></div>
+
+</div>
+
+<div class="chat" id="chatScreen">
+
+<div class="messages" id="messages"></div>
 
 <div id="typing"></div>
 
+<div class="input-box">
+<input class="input" id="messageInput" placeholder="Napisz wiadomość...">
+<button class="send" onclick="sendMessage()">Wyślij</button>
 </div>
 
-<div class="bottom" id="chatBottom" style="display:none;">
-<input id="messageInput" placeholder="Napisz wiadomość..." oninput="typing()">
+<button class="skip" onclick="skipChat()">Pomiń rozmowę</button>
 
-<button class="send-btn" onclick="sendMessage()">
-Wyślij
-</button>
 </div>
-
-<button class="skip-btn" id="skipBtn" style="display:none;" onclick="skipChat()">
-Pomiń osobę
-</button>
 
 </div>
 
@@ -282,14 +281,19 @@ remove
 
 const firebaseConfig = {
 
-apiKey: "AIzaSyAVdGNoc6K0nNxHwV55kEISwQHSE1yU6jI",
-    authDomain: "osuch-koper-chat-d40cc.firebaseapp.com",
-    databaseURL: "https://osuch-koper-chat-d40cc-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "osuch-koper-chat-d40cc",
-    storageBucket: "osuch-koper-chat-d40cc.firebasestorage.app",
-    messagingSenderId: "235610584615",
-    appId: "1:235610584615:web:7440dddb027b624e148002",
-    measurementId: "G-HWN36NKDD6"
+apiKey: "TU_WKLEJ",
+
+authDomain: "TU_WKLEJ",
+
+databaseURL: "TU_WKLEJ",
+
+projectId: "TU_WKLEJ",
+
+storageBucket: "TU_WKLEJ",
+
+messagingSenderId: "TU_WKLEJ",
+
+appId: "TU_WKLEJ"
 
 };
 
@@ -304,74 +308,112 @@ window.selectGender = function(g,btn){
 
 gender = g;
 
-document.querySelectorAll(".gender-btn")
-.forEach(b=>b.classList.remove("selected"));
+document.querySelectorAll(".gender").forEach(b=>{
+b.classList.remove("active");
+});
 
-btn.classList.add("selected");
+btn.classList.add("active");
 
 }
 
+function updateOnline(){
+
 set(ref(db,"online/"+userId),true);
 
-window.addEventListener("beforeunload",()=>{
-remove(ref(db,"online/"+userId));
-});
-
-onValue(ref(db,"online"),(snap)=>{
+onValue(ref(db,"online"),snap=>{
 
 const data = snap.val() || {};
-const count = Object.keys(data).length;
 
-document.getElementById("onlineCount").innerText =
-"Online: "+count;
+document.getElementById("online").innerText =
+"Online: " + Object.keys(data).length;
 
 });
 
-window.startChat = async function(){
+}
+
+updateOnline();
+
+window.startChat = function(){
 
 if(!gender){
 alert("Wybierz płeć 😭");
 return;
 }
 
-room = "room_"+Math.floor(Math.random()*100000);
+document.getElementById("status").innerText =
+"🔎 Szukanie rozmówcy...";
 
-document.getElementById("messages").style.display="block";
-document.getElementById("chatBottom").style.display="flex";
-document.getElementById("skipBtn").style.display="block";
+onValue(ref(db,"waiting"),snap=>{
 
-document.querySelector(".heart").style.display="none";
-document.querySelector(".title").style.display="none";
-document.querySelector(".subtitle").style.display="none";
-document.querySelector(".gender-box").style.display="none";
-document.querySelector(".start-btn").style.display="none";
+const waiting = snap.val();
 
-const div = document.createElement("div");
-div.className="msg system";
-div.innerText="💘 Połączono z rozmówcą";
-document.getElementById("messages").appendChild(div);
+if(waiting){
+
+const otherId = Object.keys(waiting)
+.find(id => id !== userId);
+
+if(otherId){
+
+room = [userId,otherId].sort().join("_");
+
+set(ref(db,"rooms/"+room+"/connected"),true);
+
+remove(ref(db,"waiting/"+otherId));
+remove(ref(db,"waiting/"+userId));
+
+openChat();
+
+}
+
+else{
+
+set(ref(db,"waiting/"+userId),{
+gender
+});
+
+}
+
+}
+
+else{
+
+set(ref(db,"waiting/"+userId),{
+gender
+});
+
+}
+
+});
+
+}
+
+function openChat(){
+
+document.getElementById("startScreen").style.display="none";
+
+document.getElementById("chatScreen").style.display="flex";
 
 listenMessages();
+
+document.getElementById("messages").innerHTML +=
+'<div class="msg other">💖 Połączono z nową osobą</div>';
 
 }
 
 function listenMessages(){
 
-onChildAdded(ref(db,"messages/"+room),(snap)=>{
+onChildAdded(ref(db,"messages/"+room),snap=>{
 
-const msg = snap.val();
+const data = snap.val();
 
 const div = document.createElement("div");
 
 div.className =
-msg.user===userId ? "msg me" : "msg other";
+data.user === userId ? "msg me" : "msg other";
 
-div.innerText = msg.text;
+div.innerText = data.text;
 
 document.getElementById("messages").appendChild(div);
-
-document.getElementById("messages").scrollTop =
-document.getElementById("messages").scrollHeight;
 
 });
 
@@ -381,15 +423,11 @@ window.sendMessage = function(){
 
 const input = document.getElementById("messageInput");
 
-const text = input.value.trim();
-
-if(text==="") return;
+if(!input.value.trim()) return;
 
 push(ref(db,"messages/"+room),{
-
-user:userId,
-text:text
-
+text:input.value,
+user:userId
 });
 
 input.value="";
@@ -398,42 +436,7 @@ input.value="";
 
 window.skipChat = function(){
 
-document.getElementById("messages").innerHTML="";
-
-const div = document.createElement("div");
-
-div.className="msg system";
-div.innerText="🔎 Szukanie nowej osoby...";
-
-document.getElementById("messages").appendChild(div);
-
-setTimeout(()=>{
-
-document.getElementById("messages").innerHTML="";
-
-const div2 = document.createElement("div");
-
-div2.className="msg system";
-div2.innerText="💘 Połączono z nową osobą";
-
-document.getElementById("messages").appendChild(div2);
-
-},2000);
-
-}
-
-window.typing = function(){
-
-document.getElementById("typing").innerText =
-"✍️ ktoś pisze...";
-
-clearTimeout(window.typingTimeout);
-
-window.typingTimeout = setTimeout(()=>{
-
-document.getElementById("typing").innerText="";
-
-},1000);
+location.reload();
 
 }
 
