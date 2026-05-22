@@ -3,75 +3,81 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>OSUCH KOPER CHAT</title>
 
 <style>
+*{
+box-sizing:border-box;
+}
+
 body{
 margin:0;
-padding:0;
 font-family:Arial,sans-serif;
+height:100vh;
 background:linear-gradient(180deg,#ffe6f5,#f0e9ff);
 display:flex;
 justify-content:center;
 align-items:center;
-min-height:100vh;
-overflow:auto;
+overflow:hidden;
 }
 
 .chat-container{
-width:370px;
-max-width:95%;
-height:90vh;
+width:100%;
+max-width:420px;
+height:100vh;
 background:white;
-border-radius:35px;
-overflow-y:auto;
-box-shadow:0 10px 35px rgba(0,0,0,0.15);
+display:flex;
+flex-direction:column;
+overflow:hidden;
 }
 
 .header{
 background:linear-gradient(90deg,#ff5fb2,#7b61ff);
-padding:30px 20px;
+padding:25px;
 text-align:center;
 color:white;
+font-size:24px;
 font-weight:900;
-font-size:22px;
-border-radius:35px 35px 0 0;
+flex-shrink:0;
 }
 
 .online{
-margin-top:10px;
-font-size:17px;
-font-weight:500;
+margin-top:8px;
+font-size:15px;
+}
+
+.start-screen{
+flex:1;
+overflow:auto;
 }
 
 .content{
-padding:30px;
+padding:25px;
 text-align:center;
 }
 
 .big-heart{
-font-size:60px;
-margin-bottom:20px;
+font-size:65px;
+margin:15px 0;
 }
 
 .title{
-font-size:58px;
+font-size:46px;
 font-weight:900;
 line-height:1;
-margin-bottom:20px;
+margin-bottom:18px;
 color:#222;
 }
 
 .subtitle{
 font-size:18px;
 color:#666;
-margin-bottom:35px;
+margin-bottom:30px;
 }
 
 .gender-buttons{
 display:flex;
-gap:15px;
+gap:12px;
 margin-bottom:25px;
 }
 
@@ -80,28 +86,28 @@ flex:1;
 padding:18px;
 border:none;
 border-radius:18px;
-font-size:22px;
+font-size:18px;
 font-weight:700;
-background:#f4f4ff;
+background:#f3f1ff;
 cursor:pointer;
 transition:0.2s;
 }
 
-.gender-btn:hover{
-transform:scale(1.03);
+.gender-btn.active{
+background:#7b61ff;
+color:white;
 }
 
 .start-btn{
 width:100%;
-padding:22px;
+padding:20px;
 border:none;
 border-radius:20px;
 background:linear-gradient(90deg,#ff5fb2,#7b61ff);
 color:white;
-font-size:24px;
+font-size:22px;
 font-weight:900;
 cursor:pointer;
-margin-bottom:20px;
 }
 
 .chat-box{
@@ -112,20 +118,19 @@ height:100%;
 
 .messages{
 flex:1;
-padding:20px;
 overflow-y:auto;
+padding:18px;
 display:flex;
 flex-direction:column;
 gap:12px;
-height:500px;
 }
 
 .message{
 padding:14px 18px;
 border-radius:18px;
 max-width:75%;
-word-wrap:break-word;
 font-size:17px;
+word-wrap:break-word;
 }
 
 .me{
@@ -135,16 +140,24 @@ align-self:flex-end;
 }
 
 .other{
-background:#eee;
+background:#efefef;
 color:#222;
 align-self:flex-start;
 }
 
+#typing{
+height:22px;
+padding:0 20px 10px;
+font-size:14px;
+color:#888;
+}
+
 .input-area{
 display:flex;
-padding:15px;
 gap:10px;
+padding:14px;
 border-top:1px solid #eee;
+background:white;
 }
 
 .input-area input{
@@ -153,42 +166,20 @@ padding:15px;
 border-radius:15px;
 border:1px solid #ddd;
 font-size:16px;
+outline:none;
 }
 
 .send-btn{
-padding:15px 20px;
+padding:15px 18px;
 border:none;
 border-radius:15px;
 background:#ff5fb2;
 color:white;
 font-weight:700;
+font-size:16px;
 cursor:pointer;
 }
 
-#typing{
-font-size:15px;
-color:#888;
-padding:0 20px 10px;
-height:20px;
-}
-
-@media(max-width:600px){
-
-.chat-container{
-width:100%;
-height:100vh;
-border-radius:0;
-}
-
-.header{
-border-radius:0;
-}
-
-.title{
-font-size:42px;
-}
-
-}
 </style>
 </head>
 
@@ -196,11 +187,13 @@ font-size:42px;
 
 <div class="chat-container">
 
-<div id="startScreen">
+<div class="start-screen" id="startScreen">
 
 <div class="header">
 OSUCH KOPER CHAT 💖
-<div class="online">Online: <span id="onlineCount">1</span></div>
+<div class="online">
+Online: 1
+</div>
 </div>
 
 <div class="content">
@@ -216,20 +209,23 @@ Wybierz swoją płeć i połącz się z losową osobą.
 </div>
 
 <div class="gender-buttons">
-<button class="gender-btn" onclick="selectGender('k')">
+
+<button class="gender-btn" id="girlBtn">
 👱‍♀️ Kobieta
 </button>
 
-<button class="gender-btn" onclick="selectGender('m')">
+<button class="gender-btn" id="boyBtn">
 👱‍♂️ Mężczyzna
 </button>
+
 </div>
 
-<button class="start-btn" onclick="startChat()">
+<button class="start-btn" id="startBtn">
 ROZPOCZNIJ ROZMOWĘ
 </button>
 
 </div>
+
 </div>
 
 <div class="chat-box" id="chatBox">
@@ -243,8 +239,17 @@ Połączono 💕
 <div id="typing"></div>
 
 <div class="input-area">
-<input type="text" id="messageInput" placeholder="Napisz wiadomość...">
-<button class="send-btn" onclick="sendMessage()">Wyślij</button>
+
+<input
+type="text"
+id="messageInput"
+placeholder="Napisz wiadomość..."
+
+
+<button class="send-btn" id="sendBtn">
+Wyślij
+</button>
+
 </div>
 
 </div>
@@ -254,69 +259,127 @@ Połączono 💕
 <script>
 
 let gender = "";
-let connected = false;
 
-function selectGender(g){
-gender = g;
-}
+const girlBtn =
+document.getElementById("girlBtn");
 
-function startChat(){
+const boyBtn =
+document.getElementById("boyBtn");
 
-if(!gender){
+const startBtn =
+document.getElementById("startBtn");
+
+const sendBtn =
+document.getElementById("sendBtn");
+
+girlBtn.addEventListener("click",()=>{
+
+gender = "k";
+
+girlBtn.classList.add("active");
+boyBtn.classList.remove("active");
+
+});
+
+boyBtn.addEventListener("click",()=>{
+
+gender = "m";
+
+boyBtn.classList.add("active");
+girlBtn.classList.remove("active");
+
+});
+
+startBtn.addEventListener("click",()=>{
+
+if(gender === ""){
 alert("Wybierz płeć 💕");
 return;
 }
 
-document.getElementById("startScreen").style.display = "none";
-document.getElementById("chatBox").style.display = "flex";
+document.getElementById("startScreen")
+.style.display = "none";
 
-connected = true;
+document.getElementById("chatBox")
+.style.display = "flex";
 
-addMessage("System", "Połączono z rozmówcą 💕");
+addMessage("other","Hej 💕");
 
+});
+
+sendBtn.addEventListener("click",sendMessage);
+
+document
+.getElementById("messageInput")
+.addEventListener("keypress",(e)=>{
+
+if(e.key === "Enter"){
+sendMessage();
 }
+
+});
 
 function sendMessage(){
 
-let input = document.getElementById("messageInput");
+const input =
+document.getElementById("messageInput");
 
-if(input.value.trim() === "") return;
+const text = input.value.trim();
 
-addMessage("me", input.value);
+if(text === "") return;
 
-let text = input.value;
+addMessage("me",text);
 
 input.value = "";
 
-document.getElementById("typing").innerText = "Rozmówca pisze...";
+document.getElementById("typing")
+.innerText = "Rozmówca pisze...";
 
 setTimeout(()=>{
 
-document.getElementById("typing").innerText = "";
+document.getElementById("typing")
+.innerText = "";
 
-addMessage("other","Haha 😭");
+const replies = [
+"Hej 😭",
+"Co tam?",
+"Haha 💀",
+"💕",
+"Skąd jesteś?",
+"Miło się gada"
+];
 
-},1500);
+const reply =
+replies[Math.floor(Math.random()*replies.length)];
+
+addMessage("other",reply);
+
+},1200);
 
 }
 
 function addMessage(type,text){
 
-let messages = document.getElementById("messages");
+const messages =
+document.getElementById("messages");
 
-let div = document.createElement("div");
+const div =
+document.createElement("div");
+
+div.classList.add("message");
 
 if(type === "me"){
-div.className = "message me";
-div.innerText = text;
+div.classList.add("me");
 }else{
-div.className = "message other";
-div.innerText = text;
+div.classList.add("other");
 }
+
+div.innerText = text;
 
 messages.appendChild(div);
 
-messages.scrollTop = messages.scrollHeight;
+messages.scrollTop =
+messages.scrollHeight;
 
 }
 
