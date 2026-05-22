@@ -4,344 +4,301 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>OSUCH KOPER CHAT</title>
-
 <style>
-
-body{
-margin:0;
-font-family:Arial,sans-serif;
-background:linear-gradient(180deg,#ffe6f5,#efe4ff);
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
-overflow:hidden;
-}
-
-.box{
-width:380px;
-height:700px;
-background:white;
-border-radius:35px;
-overflow:hidden;
-box-shadow:0 10px 40px rgba(0,0,0,0.15);
-display:flex;
-flex-direction:column;
-}
-
-.header{
-background:linear-gradient(135deg,#ff4fa3,#7a5cff);
-padding:25px;
-text-align:center;
-color:white;
-font-weight:900;
-font-size:34px;
-}
-
-.online{
-font-size:15px;
-margin-top:10px;
-}
-
-.content{
-padding:30px;
-text-align:center;
-flex:1;
-display:flex;
-flex-direction:column;
-justify-content:center;
-}
-
-.bigHeart{
-font-size:70px;
-}
-
-h1{
-font-size:55px;
-margin:10px 0;
-line-height:1;
-}
-
-p{
-font-size:20px;
-color:#666;
-}
-
-.gender{
-display:flex;
-gap:10px;
-margin-top:20px;
-}
-
-.gender button{
-flex:1;
-padding:18px;
-border:none;
-border-radius:18px;
-font-size:20px;
-font-weight:bold;
-background:#f4f0ff;
-cursor:pointer;
-}
-
-.selected{
-background:#ffd5ec!important;
-}
-
-.mainBtn{
-margin-top:20px;
-padding:22px;
-border:none;
-border-radius:20px;
-font-size:24px;
-font-weight:bold;
-background:linear-gradient(135deg,#ff4fa3,#7a5cff);
-color:white;
-cursor:pointer;
-}
-
-#chat{
-display:none;
-flex-direction:column;
-height:100%;
-}
-
-#messages{
-flex:1;
-overflow:auto;
-padding:15px;
-background:#fff9fd;
-}
-
-.msg{
-padding:12px 16px;
-border-radius:18px;
-margin-bottom:10px;
-max-width:75%;
-word-wrap:break-word;
-font-size:18px;
-}
-
-.me{
-background:linear-gradient(135deg,#ff4fa3,#7a5cff);
-color:white;
-margin-left:auto;
-}
-
-.other{
-background:#f0f0f0;
-}
-
-.system{
-background:#efe4ff;
-text-align:center;
-margin:auto;
-}
-
-.bottom{
-display:flex;
-padding:12px;
-gap:10px;
-background:white;
-}
-
-input{
-flex:1;
-padding:15px;
-border-radius:16px;
-border:1px solid #ddd;
-font-size:18px;
-}
-
-.send{
-padding:15px 20px;
-border:none;
-border-radius:16px;
-background:linear-gradient(135deg,#ff4fa3,#7a5cff);
-color:white;
-font-weight:bold;
-font-size:18px;
-cursor:pointer;
-}
-
-.skip{
-margin:10px;
-padding:14px;
-border:none;
-border-radius:16px;
-background:black;
-color:white;
-font-size:18px;
-font-weight:bold;
-cursor:pointer;
-}
-
-#typing{
-height:20px;
-font-size:14px;
-padding-left:20px;
-color:#888;
-}
-
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;height:100vh;display:flex;justify-content:center;align-items:center;background:linear-gradient(180deg,#ffe6f5,#efe4ff);overflow:hidden}
+.box{width:390px;height:720px;background:white;border-radius:35px;overflow:hidden;box-shadow:0 15px 45px #0002;display:flex;flex-direction:column}
+.header{background:linear-gradient(135deg,#ff4fa3,#7a5cff);padding:25px;text-align:center;color:white;font-size:34px;font-weight:900}
+.online{font-size:15px;margin-top:10px}
+.content{padding:30px;text-align:center;flex:1;display:flex;flex-direction:column;justify-content:center}
+.bigHeart{font-size:70px}
+h1{font-size:48px;margin:10px 0;line-height:1}
+p{font-size:19px;color:#666}
+.gender{display:flex;gap:10px;margin-top:20px}
+.gender button{flex:1;padding:18px;border:none;border-radius:18px;font-size:18px;font-weight:bold;background:#f4f0ff;cursor:pointer}
+.selected{background:#ffd5ec!important}
+.mainBtn{margin-top:20px;padding:22px;border:none;border-radius:20px;font-size:22px;font-weight:bold;background:linear-gradient(135deg,#ff4fa3,#7a5cff);color:white;cursor:pointer}
+#chat{display:none;flex-direction:column;height:100%}
+#messages{flex:1;overflow:auto;padding:15px;background:#fff9fd}
+.msg{padding:12px 16px;border-radius:18px;margin-bottom:10px;max-width:75%;word-wrap:break-word;font-size:18px}
+.me{background:linear-gradient(135deg,#ff4fa3,#7a5cff);color:white;margin-left:auto}
+.other{background:#f0f0f0}
+.system{background:#efe4ff;text-align:center;margin:auto;color:#7350c7}
+.bottom{display:flex;padding:12px;gap:10px;background:white}
+input{flex:1;padding:15px;border-radius:16px;border:1px solid #ddd;font-size:18px}
+.send,.skip{border:none;border-radius:16px;color:white;font-weight:bold;font-size:18px;cursor:pointer}
+.send{padding:15px 20px;background:linear-gradient(135deg,#ff4fa3,#7a5cff)}
+.skip{margin:10px;padding:14px;background:black}
+#typing{height:22px;font-size:14px;padding-left:20px;color:#888}
 </style>
 </head>
 
 <body>
-
 <div class="box">
-
 <div class="header">
 OSUCH KOPER CHAT 💖
-<div class="online">
-Online: <span id="onlineCount">0</span>
-</div>
+<div class="online">Online: <span id="onlineCount">0</span></div>
 </div>
 
 <div class="content" id="start">
-
 <div class="bigHeart">💞</div>
-
 <h1>Poznaj kogoś anonimowo</h1>
-
-<p>Wybierz swoją płeć i połącz się z losową osobą.</p>
+<p>Wybierz swoją płeć i połącz się z prawdziwą osobą.</p>
 
 <div class="gender">
 <button id="girlBtn">👧 Kobieta</button>
 <button id="boyBtn">👦 Mężczyzna</button>
 </div>
 
-<button class="mainBtn" id="startBtn">
-ROZPOCZNIJ ROZMOWĘ
-</button>
-
+<button class="mainBtn" id="startBtn">ROZPOCZNIJ ROZMOWĘ</button>
 </div>
 
 <div id="chat">
-
-<button class="skip" id="skipBtn">
-Pomiń osobę
-</button>
-
+<button class="skip" id="skipBtn">Pomiń osobę</button>
 <div id="messages"></div>
-
 <div id="typing"></div>
-
 <div class="bottom">
 <input id="messageInput" placeholder="Napisz wiadomość...">
-<button class="send" id="sendBtn">
-Wyślij
-</button>
+<button class="send" id="sendBtn">Wyślij</button>
 </div>
-
 </div>
-
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 
 <script>
-
-const firebaseConfig = {
-
-apiKey: "AIzaSyAVdGNoc6K0nNxHwV55kEISwQHSE1yU6jI",
-authDomain: "osuch-koper-chat-d40cc.firebaseapp.com",
-databaseURL: "https://osuch-koper-chat-d40cc-default-rtdb.europe-west1.firebasedatabase.app",
-projectId: "osuch-koper-chat-d40cc",
-storageBucket: "osuch-koper-chat-d40cc.firebasestorage.app",
-messagingSenderId: "235610584615",
-appId: "1:235610584615:web:325cd704fc71a321148002"
-
+const firebaseConfig={
+   apiKey: "AIzaSyAVdGNoc6K0nNxHwV55kEISwQHSE1yU6jI",
+    authDomain: "osuch-koper-chat-d40cc.firebaseapp.com",
+    databaseURL: "https://osuch-koper-chat-d40cc-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "osuch-koper-chat-d40cc",
+    storageBucket: "osuch-koper-chat-d40cc.firebasestorage.app",
+    messagingSenderId: "235610584615",
+    appId: "1:235610584615:web:325cd704fc71a321148002",
 };
 
 firebase.initializeApp(firebaseConfig);
+const db=firebase.database();
 
-const db = firebase.database();
+const userId=Math.random().toString(36).substring(2,9);
+let gender="";
+let room=null;
+let partner=null;
+let opened=false;
+let typingTimer=null;
+let waitingTimer=null;
 
-const userId =
-Math.random().toString(36).substring(2,9);
+const girlBtn=document.getElementById("girlBtn");
+const boyBtn=document.getElementById("boyBtn");
+const startDiv=document.getElementById("start");
+const chat=document.getElementById("chat");
+const messages=document.getElementById("messages");
+const input=document.getElementById("messageInput");
+const typing=document.getElementById("typing");
 
-let gender = "";
-let room = null;
+girlBtn.onclick=()=>{gender="kobieta";girlBtn.classList.add("selected");boyBtn.classList.remove("selected")};
+boyBtn.onclick=()=>{gender="mezczyzna";boyBtn.classList.add("selected");girlBtn.classList.remove("selected")};
 
-const girlBtn =
-document.getElementById("girlBtn");
+const onlineRef=db.ref("online/"+userId);
+onlineRef.set({lastSeen:Date.now()});
+onlineRef.onDisconnect().remove();
 
-const boyBtn =
-document.getElementById("boyBtn");
+setInterval(()=>onlineRef.update({lastSeen:Date.now()}),5000);
 
-girlBtn.onclick = () => {
-gender = "kobieta";
-girlBtn.classList.add("selected");
-boyBtn.classList.remove("selected");
-};
+db.ref("online").on("value",snap=>{
+const data=snap.val()||{};
+let count=0;
+const now=Date.now();
+Object.entries(data).forEach(([id,u])=>{
+if(u&&u.lastSeen&&now-u.lastSeen<15000)count++;
+else db.ref("online/"+id).remove();
+});
+document.getElementById("onlineCount").innerText=count;
+});
 
-boyBtn.onclick = () => {
-gender = "mezczyzna";
-boyBtn.classList.add("selected");
-girlBtn.classList.remove("selected");
-};
+document.getElementById("startBtn").onclick=async()=>{
+if(!gender){alert("Wybierz płeć 😭");return;}
 
-document.getElementById("onlineCount")
-.innerText = 1;
+opened=false;
+room=null;
+partner=null;
+messages.innerHTML="";
+typing.innerText="";
 
-document.getElementById("startBtn")
-.onclick = async () => {
+await db.ref("waiting/"+userId).remove();
+await db.ref("matches/"+userId).remove();
 
-if(!gender){
-alert("Wybierz płeć 😭");
+startDiv.innerHTML='<div style="font-size:25px;font-weight:bold;color:#7a5cff">🔎 Szukanie rozmówcy...</div>';
+
+const snap=await db.ref("waiting").get();
+const waiting=snap.val()||{};
+const now=Date.now();
+let found=null;
+
+Object.values(waiting).forEach(p=>{
+if(p&&p.id!==userId&&p.lastSeen&&now-p.lastSeen<15000&&!found){
+found=p;
+}
+});
+
+if(found){
+const roomId=[userId,found.id].sort().join("_");
+
+await db.ref("waiting/"+found.id).remove();
+
+await db.ref("rooms/"+roomId+"/presence").set({
+[userId]:true,
+[found.id]:true
+});
+
+await db.ref("matches/"+found.id).set({
+room:roomId,
+partnerId:userId,
+partnerGender:gender
+});
+
+await db.ref("matches/"+userId).set({
+room:roomId,
+partnerId:found.id,
+partnerGender:found.gender
+});
+
 return;
 }
 
-document.getElementById("start")
-.style.display = "none";
-
-document.getElementById("chat")
-.style.display = "flex";
-
-document.getElementById("messages")
-.innerHTML =
-'<div class="msg system">💕 Połączono z rozmówcą</div>';
-
-};
-
-document.getElementById("sendBtn")
-.onclick = sendMessage;
-
-document.getElementById("messageInput")
-.addEventListener("keydown",e=>{
-
-if(e.key==="Enter"){
-sendMessage();
-}
-
+await db.ref("waiting/"+userId).set({
+id:userId,
+gender:gender,
+lastSeen:Date.now()
 });
 
-function sendMessage(){
+db.ref("waiting/"+userId).onDisconnect().remove();
 
-const input =
-document.getElementById("messageInput");
+clearInterval(waitingTimer);
+waitingTimer=setInterval(()=>{
+if(!room){
+db.ref("waiting/"+userId).update({lastSeen:Date.now()});
+}
+},5000);
+};
 
-const text =
-input.value.trim();
+db.ref("matches/"+userId).on("value",async snap=>{
+const match=snap.val();
 
-if(!text) return;
+if(match&&!opened){
+opened=true;
+room=match.room;
+partner=match.partnerId;
 
-const div =
-document.createElement("div");
+clearInterval(waitingTimer);
 
-div.className = "msg me";
+await db.ref("waiting/"+userId).remove();
 
-div.innerText = text;
+await db.ref("rooms/"+room+"/presence/"+userId).set(true);
+db.ref("rooms/"+room+"/presence/"+userId).onDisconnect().set(false);
 
-document.getElementById("messages")
-.appendChild(div);
+openChat(match.partnerGender);
+}
+});
 
-input.value = "";
+function openChat(partnerGender){
+startDiv.style.display="none";
+chat.style.display="flex";
 
+messages.innerHTML='<div class="msg system">💕 Połączono z '+(partnerGender==="kobieta"?"dziewczyną":"chłopakiem")+'</div>';
+
+db.ref("rooms/"+room+"/messages").off();
+
+db.ref("rooms/"+room+"/messages").on("child_added",snap=>{
+const msg=snap.val();
+if(!msg||!msg.text)return;
+
+const div=document.createElement("div");
+div.className=msg.user===userId?"msg me":"msg other";
+div.innerText=msg.text;
+messages.appendChild(div);
+messages.scrollTop=messages.scrollHeight;
+});
+
+db.ref("rooms/"+room+"/typing/"+partner).on("value",snap=>{
+const data=snap.val();
+if(data&&data.typing&&Date.now()-data.time<3000){
+typing.innerText="Rozmówca pisze...";
+}else{
+typing.innerText="";
+}
+});
+
+db.ref("rooms/"+room+"/presence/"+partner).on("value",snap=>{
+if(snap.val()===false&&room){
+room=null;
+typing.innerText="";
+const div=document.createElement("div");
+div.className="msg system";
+div.innerText="❌ Rozmówca wyszedł";
+messages.appendChild(div);
+}
+});
 }
 
-</script>
+input.oninput=()=>{
+if(!room)return;
 
+db.ref("rooms/"+room+"/typing/"+userId).set({
+typing:true,
+time:Date.now()
+});
+
+clearTimeout(typingTimer);
+
+typingTimer=setTimeout(()=>{
+if(room){
+db.ref("rooms/"+room+"/typing/"+userId).set({
+typing:false,
+time:Date.now()
+});
+}
+},1000);
+};
+
+document.getElementById("sendBtn").onclick=sendMessage;
+
+input.addEventListener("keydown",e=>{
+if(e.key==="Enter")sendMessage();
+});
+
+async function sendMessage(){
+const text=input.value.trim();
+if(!text)return;
+
+if(!room){
+alert("Nie masz rozmówcy 😭");
+return;
+}
+
+await db.ref("rooms/"+room+"/typing/"+userId).set({
+typing:false,
+time:Date.now()
+});
+
+await db.ref("rooms/"+room+"/messages").push({
+user:userId,
+text:text,
+time:Date.now()
+});
+
+input.value="";
+}
+
+document.getElementById("skipBtn").onclick=async()=>{
+if(room){
+await db.ref("rooms/"+room+"/presence/"+userId).set(false);
+}
+
+await db.ref("matches/"+userId).remove();
+location.reload();
+};
+</script>
 </body>
 </html>
